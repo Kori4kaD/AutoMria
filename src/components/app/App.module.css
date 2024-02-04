@@ -1,0 +1,81 @@
+
+.App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  justify-content: space-between;
+}
+h1{
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.filterWrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.filter {
+  width: 80%;
+  display: grid;
+    grid-template-columns: 1fr 1fr; /* Дві колонки з однаковою шириною */
+    gap: 20px; /* Відступ між елементами сітки */
+    padding: 20px;
+}
+.filter label {
+  border: 1px solid #0000ff40;
+    border-radius: 10px;
+    padding: 5px;
+}
+.filter select {
+  border: 1px solid #0000ff40;
+    border-radius: 10px;
+    padding: 5px;
+    margin-left: 10px;
+}
+.cars {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.car {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3px;
+  width: 300px;
+
+}
+.imgContainer{
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+}
+.imgContainer img{
+ 
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+hr{
+  color: black;
+  background-color: black;
+  height: 2px;
+  width: 100%;
+}
+button {
+  height:  30px;
+  padding: 7px;
+  border: 1px solid grey;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 10px;
+  margin-left: 10px;
+}
+@media (max-width: 768px) {
+  .filter {
+      grid-template-columns: 1fr; /* Одна колонка при ширині екрана менше 768px */
+  }
+}
