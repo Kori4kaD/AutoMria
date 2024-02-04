@@ -4,27 +4,44 @@ import Header from "../header/Header";
 import Footer from "../footer/Footer";
 import ArrCatalog from "../../share/catalog";
 import { Cars, FilteredCars } from "../../share/Cars";
+import Modal from "../modal/Modal";
+import AddCarComponent from "../AddCar/AddCar";
+import InfoCarComponent from "../InfoCar/InfoCar";
 
 function App() {
   if (!localStorage.getItem("catalog")) {
     const catalogData = JSON.stringify(ArrCatalog);
     localStorage.setItem("catalog", catalogData);
   }
-  const storedCatalogData = localStorage.getItem("catalog");
-  const parsedCatalog = JSON.parse(storedCatalogData);
+ 
 
-  const Catalog = parsedCatalog.map((car) => ({
-    ...car,
-    price: parseInt(car.price, 10),
-  }));
-
+  const [сatalog, setCatalog] = useState([]);
   const [filteredColor, setFilteredColor] = useState("All");
   const [filteredBrand, setFilteredBrand] = useState("All");
   const [filteredYear, setFilteredYear] = useState("All");
   const [filteredVolume, setFilteredVolume] = useState("All");
   const [filteredPrice, setFilteredPrice] = useState("All");
-  const [filteredCatalog, setFilteredCatalog] = useState(Catalog);
+  const [filteredCatalog, setFilteredCatalog] = useState(сatalog);
   const [showFilteredCars, setShowFilteredCars] = useState(false);
+  const [isModalOpen, setModal] = useState(false);
+  const [modalContent, setModalContent] = useState('contact');
+  const [carId, setCarId] = useState(null);
+
+  useEffect(() => {
+    const storedCatalogData = localStorage.getItem("catalog");
+    const parsedCatalog = JSON.parse(storedCatalogData) || [];
+    setCatalog(parsedCatalog);
+  }, []);
+
+  // Функція для оновлення масиву в головному компоненті
+  const updateCatalog = (updatedCatalog) => {
+    setCatalog(updatedCatalog);
+  };
+  const openModal = (content = 'contact', carId = null) => {
+    setModal((prev) => !prev);
+    setModalContent(content);
+    setCarId(carId);
+  };
 
   useEffect(() => {
     if (showFilteredCars) {
@@ -39,9 +56,7 @@ function App() {
     showFilteredCars,
   ]);
 
-  function handleOrderClick(id) {
-    console.log(id);
-  }
+ 
 
   const colorOptions = ["All", "Green", "Black", "White", "Red", "Yellow", "Blue"];
   const brandOptions = [
@@ -67,7 +82,7 @@ function App() {
   ];
 
   const applyFilters = () => {
-    let result = [...Catalog];
+    let result = [... сatalog];
 
    
     if (filteredColor !== "All") {
@@ -136,13 +151,13 @@ function App() {
     setFilteredYear("All");
     setFilteredVolume("All");
     setFilteredPrice("All");
-    setFilteredCatalog(Catalog);
+    setFilteredCatalog(сatalog);
     setShowFilteredCars(false);
   };
 
   return (
     <div className={styles.App}>
-      <Header />
+      <Header openModal={openModal}/>
       <main className={styles.content}>
         <div className="container">
           <div className={styles.filterWrap}>
@@ -230,20 +245,31 @@ function App() {
           </div>
           </div>
          
-          
-          
           <h1>Автомобілі в наявності</h1>
           {showFilteredCars ? (
             <FilteredCars
-              catalog={filteredCatalog}
-              handleOrderClick={handleOrderClick}
+            сatalog={filteredCatalog}
+              openModal={openModal}
             />
           ) : (
-            <Cars catalog={Catalog} handleOrderClick={handleOrderClick} />
+            <Cars сatalog={сatalog} openModal={openModal} />
           )}
         </div>
       </main>
       <Footer />
+      <Modal
+  isModalOpen={isModalOpen}
+  openModal={openModal}
+  modalPosition={modalContent !== 'contact' && 'right'}
+>
+  {modalContent === 'addCar' ? (
+    <AddCarComponent updateCatalog={updateCatalog}/>
+  ) : modalContent === 'info' ? (
+    <InfoCarComponent carId={carId} />
+  ) : (
+    <h2>Інша інформація</h2>
+  )}
+</Modal>
     </div>
   );
 }

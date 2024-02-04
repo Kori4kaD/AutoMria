@@ -1,10 +1,10 @@
 import React from 'react';
 import styles from '../components/app/App.module.css';
 
-function Cars({ catalog, handleOrderClick }) {
+function Cars({сatalog, openModal }) {
   return (
     <div className={styles.cars}>
-      {catalog.map((car, index) => (
+      {сatalog.map((car, index) => (
         <div className={styles.car} key={index}>
           <h2>{car.name}</h2>
           <p>Виробник: {car.brend}</p>
@@ -16,8 +16,8 @@ function Cars({ catalog, handleOrderClick }) {
           <div className={styles.imgContainer}>
           <img src={car.img} alt={`Car ${index}`} />
           </div>
-          <button id={`orderButton_${car.id}`} onClick={() => handleOrderClick(car.id)}>
-            Замовити
+          <button id={`orderButton_${car.id}`} onClick={() => openModal('info', car.id)} >
+            Інфо
           </button>
           <hr />
         </div>
@@ -26,11 +26,11 @@ function Cars({ catalog, handleOrderClick }) {
   );
 }
 
-function FilteredCars({ catalog, handleOrderClick }) {
-  // console.log(catalog);
+function FilteredCars({ сatalog, openModal }) {
+  
   return (
     <div className={styles.cars}>
-      {catalog.map((car, index) => (
+      {сatalog.map((car, index) => (
         <div className={styles.car} key={index}>
           <h2>{car.name}</h2>
           <p>Виробник: {car.brend}</p>
@@ -42,7 +42,7 @@ function FilteredCars({ catalog, handleOrderClick }) {
           <div className={styles.imgContainer}>
           <img src={car.img} alt={`Car ${index}`} />
           </div>
-          <button id={`orderButton_${car.id}`} onClick={() => handleOrderClick(car.id)}>
+          <button id={`orderButton_${car.id}`} onClick={() => openModal(car.id)} >
             Замовити
           </button>
           <hr />

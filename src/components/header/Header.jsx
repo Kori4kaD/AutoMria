@@ -5,7 +5,7 @@ export default function Header({openModal}) {
   return (
     <header>
      <h1>header</h1>
-     <button onClick={() => openModal()}>Додати автомобіль</button>
+     <button onClick={() => openModal('addCar')}>Додати автомобіль</button>
     </header>
   );
 }

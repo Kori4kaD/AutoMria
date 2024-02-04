@@ -34,3 +34,12 @@ section {
   padding: 40px 0;
   background-color:#f0f1f2;
 }
+button{
+  cursor: pointer;
+}
+.hide {
+  display: none;
+}
+.show {
+  display: block;
+}
