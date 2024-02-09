@@ -37,6 +37,11 @@ section {
 button{
   cursor: pointer;
 }
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
 .hide {
   display: none;
 }

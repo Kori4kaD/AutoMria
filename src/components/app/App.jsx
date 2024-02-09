@@ -263,7 +263,7 @@ function App() {
   modalPosition={modalContent !== 'contact' && 'right'}
 >
   {modalContent === 'addCar' ? (
-    <AddCarComponent updateCatalog={updateCatalog}/>
+    <AddCarComponent updateCatalog={updateCatalog} />
   ) : modalContent === 'info' ? (
     <InfoCarComponent carId={carId} />
   ) : (
