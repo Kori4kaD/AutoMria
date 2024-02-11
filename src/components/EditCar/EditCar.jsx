@@ -1,12 +1,14 @@
-// AddCarComponent.jsx
+// EditCarComponent.jsx
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const AddCarComponent = ({ updateCatalog }) => {
-  const [isCarAdded, setCarAdded] = useState(false);
- 
+
+const EditCarComponent = ({ updateCatalog, id }) => {
+
+  const [selectedCar, setSelectedCar] = useState(null);
+
   const [formData, setFormData] = useState({
-    author:"",
+    author: "",
     name: "",
     brend: "",
     year: "",
@@ -16,20 +18,50 @@ const AddCarComponent = ({ updateCatalog }) => {
     desc: "",
     img: "",
   });
-  const addCarToCatalog = () => {
-    const storedCatalogData = localStorage.getItem("catalog");
-    const parsedCatalog = JSON.parse(storedCatalogData) || [];
+  useEffect(() => {
+    // Предзаполнение данных формы из выбранного автомобиля
+    if (selectedCar) {
+      setFormData({
+        author: selectedCar.author,
+        name: selectedCar.name,
+        brend: selectedCar.brend,
+        year: selectedCar.year,
+        volume: selectedCar.volume,
+        price: selectedCar.price,
+        color: selectedCar.color,
+        desc: selectedCar.desc,
+        img: selectedCar.img,
+      });
+    }
+  }, [selectedCar]);
+  const storedCatalogData = localStorage.getItem("catalog");
+  const parsedCatalog = JSON.parse(storedCatalogData);
 
+  // Модифікуємо каталог, якщо потрібно
+  const catalog = parsedCatalog.map((car) => ({
+    ...car,
+    price: parseInt(car.price, 10),
+  }));
+  useEffect(() => {
+    // Отримуємо дані з localStorage
+   
+
+    const foundCar = catalog.find((car) => car.id === id);
+    setSelectedCar(foundCar);
+  }, [id]);
+  const newArray = catalog.filter(item => item.id !== id);
+
+  const editCarToCatalog = () => {
     // Додайте новий об'єкт до поточного масиву
     const uniqueId = Date.now();
-
-    const updatedCatalog = [...parsedCatalog, { id: uniqueId , ...formData}];
-
-    console.log(formData);
+    const author = selectedCar.author;
+    const updatedCatalog = [
+      ...newArray,
+      { id: uniqueId, author: author, ...formData },
+    ];
     // Оновіть локальне сховище з оновленим масивом
     localStorage.setItem("catalog", JSON.stringify(updatedCatalog));
-    localStorage.setItem("token", JSON.stringify(formData.author));
-    setCarAdded(true);
+    // setCarAdded(true);
     updateCatalog(updatedCatalog);
   };
   const handleChange = (e) => {
@@ -39,20 +71,10 @@ const AddCarComponent = ({ updateCatalog }) => {
     });
   };
   return (
-    <div>
-      <h1>Добавить новый автомобиль</h1>
+    <div className="editForm">
+      <h1>Edit {id}</h1>
 
       <form>
-        <label>
-          Ваше імя:
-          <input
-            type="text"
-            name="author"
-            value={formData.author}
-            onChange={handleChange}
-            
-          />
-        </label>
         <label>
           Назва автомобілю:
           <input
@@ -81,15 +103,15 @@ const AddCarComponent = ({ updateCatalog }) => {
           />
         </label>
         <label>
-            Обєм двигуна:
-            <input
-              type="text"
-              name="volume"
-              value={formData.volume}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
+          Обєм двигуна:
+          <input
+            type="text"
+            name="volume"
+            value={formData.volume}
+            onChange={handleChange}
+          />
+        </label>
+        <label>
           Ціна:
           <input
             type="text"
@@ -125,15 +147,11 @@ const AddCarComponent = ({ updateCatalog }) => {
             onChange={handleChange}
           />
         </label>
-        <button type="submit" onClick={() => addCarToCatalog()}>
+        <button type="submit" onClick={() => editCarToCatalog()}>
           Додати
         </button>
       </form>
-      <div className={`message ${isCarAdded ? "show" : "hide"}`}>
-        <h5>ваш автомобіль додано</h5>
-      </div>
     </div>
   );
 };
-
-export default AddCarComponent;
+export default EditCarComponent;

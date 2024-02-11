@@ -15,10 +15,9 @@ export default function Modal({
       }`}
       onClick={() => openModal()}>
       <div className={styles.modalInner} onClick={(e) => e.stopPropagation()}>
-        <div>
+       
         {children}
-         
-        </div>
+      
       </div>
     </div>
   );

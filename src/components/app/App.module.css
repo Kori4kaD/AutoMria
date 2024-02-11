@@ -11,7 +11,7 @@ h1{
   margin-bottom: 10px;
 }
 .filterWrap{
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
 }
@@ -74,6 +74,11 @@ button {
   margin-top: 10px;
   margin-left: 10px;
 }
+.showFilter {
+  display: flex;
+}
+
+
 @media (max-width: 768px) {
   .filter {
       grid-template-columns: 1fr; /* Одна колонка при ширині екрана менше 768px */

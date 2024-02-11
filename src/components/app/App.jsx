@@ -26,6 +26,7 @@ function App() {
   const [isModalOpen, setModal] = useState(false);
   const [modalContent, setModalContent] = useState('contact');
   const [carId, setCarId] = useState(null);
+  const [showFilter, setShowFilter] = useState(false);
 
   useEffect(() => {
     const storedCatalogData = localStorage.getItem("catalog");
@@ -154,13 +155,16 @@ function App() {
     setFilteredCatalog(сatalog);
     setShowFilteredCars(false);
   };
-
+  const toggleFilter = () => {
+    setShowFilter(!showFilter);
+  };
   return (
     <div className={styles.App}>
       <Header openModal={openModal}/>
       <main className={styles.content}>
         <div className="container">
-          <div className={styles.filterWrap}>
+        <button onClick={toggleFilter}>Фільтр</button>
+          <div className={`${styles.filterWrap} ${showFilter ? styles.showFilter : ''}`}>
           <div className={styles.filter}>
             <label>
               Фільтр за кольором:
@@ -265,7 +269,7 @@ function App() {
   {modalContent === 'addCar' ? (
     <AddCarComponent updateCatalog={updateCatalog} />
   ) : modalContent === 'info' ? (
-    <InfoCarComponent carId={carId} />
+    <InfoCarComponent carId={carId} updateCatalog={updateCatalog} closeModal={() => setModal(false)} />
   ) : (
     <h2>Інша інформація</h2>
   )}
