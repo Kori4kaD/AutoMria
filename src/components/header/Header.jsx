@@ -1,5 +1,5 @@
 import styles from "./Header.module.css";
-import logo3 from "../../share/images/Автомрія 6.png";
+import logo3 from "../../share/images/autoMriya.png";
 import telegram from "../../share/images/telegram.png";
 import viber from "../../share/images/viber.png";
 import phone from "../../share/images/phone-call.png";
