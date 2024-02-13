@@ -1,1 +1,51 @@
 
+
+
+footer {
+    padding-top: 30px;
+    background-color: #437800;
+   display: flex;
+   background-image: url(../../share/images/footer.png);
+   background-position: bottom;
+   background-position-y: 321px;
+   padding-left: 5px;
+   padding-right: 5px;
+}
+.infoFooter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo img{
+    height:  60px;
+ 
+}
+
+.contacts{
+    display: flex;
+    gap: 7px;
+    
+}
+.contact {
+    width: 60px;
+}
+.contact img {
+    width: 60px;
+    height:60px;
+    object-fit: cover;
+}
+@media (max-width: 450px) {
+    .logo img{
+        height:  40px;
+    } 
+    .contact {
+        width: 40px;
+    }
+    .contact img {
+        width: 40px;
+        height:40px;
+        object-fit: cover;
+    }
+}

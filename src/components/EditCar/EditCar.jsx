@@ -1,10 +1,6 @@
-// EditCarComponent.jsx
-
 import React, { useState, useEffect } from "react";
 
-
 const EditCarComponent = ({ updateCatalog, id }) => {
-
   const [selectedCar, setSelectedCar] = useState(null);
 
   const [formData, setFormData] = useState({
@@ -37,31 +33,28 @@ const EditCarComponent = ({ updateCatalog, id }) => {
   const storedCatalogData = localStorage.getItem("catalog");
   const parsedCatalog = JSON.parse(storedCatalogData);
 
-  // Модифікуємо каталог, якщо потрібно
   const catalog = parsedCatalog.map((car) => ({
     ...car,
     price: parseInt(car.price, 10),
   }));
   useEffect(() => {
     // Отримуємо дані з localStorage
-   
 
     const foundCar = catalog.find((car) => car.id === id);
     setSelectedCar(foundCar);
   }, [id]);
-  const newArray = catalog.filter(item => item.id !== id);
+  const newArray = catalog.filter((item) => item.id !== id);
 
   const editCarToCatalog = () => {
-    // Додайте новий об'єкт до поточного масиву
+    // Додаю новий об'єкт до поточного масиву
     const uniqueId = Date.now();
     const author = selectedCar.author;
     const updatedCatalog = [
       ...newArray,
       { id: uniqueId, author: author, ...formData },
     ];
-    // Оновіть локальне сховище з оновленим масивом
+    // Оновлюю локальне сховище з оновленим масивом
     localStorage.setItem("catalog", JSON.stringify(updatedCatalog));
-    // setCarAdded(true);
     updateCatalog(updatedCatalog);
   };
   const handleChange = (e) => {
@@ -72,8 +65,6 @@ const EditCarComponent = ({ updateCatalog, id }) => {
   };
   return (
     <div className="editForm">
-      <h1>Edit {id}</h1>
-
       <form>
         <label>
           Назва автомобілю:
@@ -148,7 +139,7 @@ const EditCarComponent = ({ updateCatalog, id }) => {
           />
         </label>
         <button type="submit" onClick={() => editCarToCatalog()}>
-          Додати
+          Зберегти
         </button>
       </form>
     </div>

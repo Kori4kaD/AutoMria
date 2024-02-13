@@ -5,10 +5,17 @@
   min-height: 100vh;
   justify-content: space-between;
 }
-h1{
+h2{
   text-align: center;
   margin-top: 10px;
   margin-bottom: 10px;
+  font-size: xx-large;
+}
+.btnContainer{
+  display: flex;
+  justify-content: flex-end;
+  margin-left: 12px;
+  justify-content: space-between;
 }
 .filterWrap{
   display: none;
@@ -18,8 +25,8 @@ h1{
 .filter {
   width: 80%;
   display: grid;
-    grid-template-columns: 1fr 1fr; /* Дві колонки з однаковою шириною */
-    gap: 20px; /* Відступ між елементами сітки */
+    grid-template-columns: 1fr 1fr; 
+    gap: 20px;
     padding: 20px;
 }
 .filter label {
@@ -40,16 +47,31 @@ h1{
     gap: 20px;
     justify-content: center;
 }
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
 .car {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 3px;
   width: 300px;
-
+  background-color: #f9f7f4;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 3px 3px 4px 1px rgba(0, 0, 0, 0.3);
+  animation: slideInFromBottom 2s ease-out;
 }
+
 .imgContainer{
-  width: 300px;
+  width: 100%;
   height: 200px;
   overflow: hidden;
 }

@@ -1,4 +1,3 @@
-// AddCarComponent.jsx
 
 import React, { useState } from "react";
 
@@ -20,13 +19,12 @@ const AddCarComponent = ({ updateCatalog }) => {
     const storedCatalogData = localStorage.getItem("catalog");
     const parsedCatalog = JSON.parse(storedCatalogData) || [];
 
-    // Додайте новий об'єкт до поточного масиву
+    // Додаю  новий об'єкт до поточного масиву
     const uniqueId = Date.now();
 
     const updatedCatalog = [...parsedCatalog, { id: uniqueId , ...formData}];
 
-    console.log(formData);
-    // Оновіть локальне сховище з оновленим масивом
+    // Оновлюю локальне сховище з оновленим масивом
     localStorage.setItem("catalog", JSON.stringify(updatedCatalog));
     localStorage.setItem("token", JSON.stringify(formData.author));
     setCarAdded(true);
@@ -40,7 +38,7 @@ const AddCarComponent = ({ updateCatalog }) => {
   };
   return (
     <div>
-      <h1>Добавить новый автомобиль</h1>
+      <h2>Додати авто на продаж</h2>
 
       <form>
         <label>

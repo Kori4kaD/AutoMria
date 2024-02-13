@@ -9,6 +9,7 @@ import AddCarComponent from "../AddCar/AddCar";
 import InfoCarComponent from "../InfoCar/InfoCar";
 
 function App() {
+  //якщо спочатку в сховищі немає каталогу, ми його туди зберігаємо
   if (!localStorage.getItem("catalog")) {
     const catalogData = JSON.stringify(ArrCatalog);
     localStorage.setItem("catalog", catalogData);
@@ -81,9 +82,9 @@ function App() {
     "17000",
     "18000",
   ];
-
+//фільтри для каталогу
   const applyFilters = () => {
-    let result = [... сatalog];
+    let result = [...сatalog];
 
    
     if (filteredColor !== "All") {
@@ -138,7 +139,6 @@ function App() {
         return !isNaN(carPrice) && carPrice >= minPrice && carPrice <= maxPrice;
       });
     }
-
     setFilteredCatalog(result);
   };
 
@@ -163,7 +163,11 @@ function App() {
       <Header openModal={openModal}/>
       <main className={styles.content}>
         <div className="container">
-        <button onClick={toggleFilter}>Фільтр</button>
+          <div className={styles.btnContainer}>
+          <button onClick={toggleFilter}>Фільтр</button>
+          <button onClick={() => openModal('addCar')}>Додати автомобіль</button>
+          </div>
+        
           <div className={`${styles.filterWrap} ${showFilter ? styles.showFilter : ''}`}>
           <div className={styles.filter}>
             <label>
@@ -249,7 +253,7 @@ function App() {
           </div>
           </div>
          
-          <h1>Автомобілі в наявності</h1>
+          <h2>Автомобілі в наявності</h2>
           {showFilteredCars ? (
             <FilteredCars
             сatalog={filteredCatalog}
